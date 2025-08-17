@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev": "tsc && node dist/app.js",
-    "test": "tsc && node dist/teste.js"
+    "test": "tsc && node dist/teste.js",
+    "reset:db": "ts-node src/resetDB.ts"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

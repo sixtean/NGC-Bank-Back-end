@@ -76,7 +76,7 @@ class RegisterUser {
                 email: this.data.email,
             };
             const token = jsonwebtoken_1.default.sign(payload, process.env.JWT_SECRET, {
-                expiresIn: '1h',
+                expiresIn: '1d',
             });
             const newUser = userRepository.create({
                 nome: this.data.name,

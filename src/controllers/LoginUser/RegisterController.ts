@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { RegisterUser } from "../../services/LoginUserService/RegisterService";
-import { RegisterUserDTO } from "../../dtos/RegisterUserDTO";
+import { RegisterUserDTO } from "../../dtos/login/RegisterUserDTO";
 
 export class RegisterControler {
     async handle(req: Request, res: Response) {

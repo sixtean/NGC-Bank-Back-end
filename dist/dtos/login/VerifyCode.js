@@ -9,25 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RegisterUserDTO = void 0;
+exports.VerifyCodeDTO = void 0;
 const class_validator_1 = require("class-validator");
-class RegisterUserDTO {
+class VerifyCodeDTO {
 }
-exports.RegisterUserDTO = RegisterUserDTO;
+exports.VerifyCodeDTO = VerifyCodeDTO;
 __decorate([
-    (0, class_validator_1.IsEmail)({}, { message: 'Invalid email' }),
+    (0, class_validator_1.IsString)({ message: 'Verification code must be a string' }),
+    (0, class_validator_1.Matches)(/^\d{6}$/, { message: 'Verification code must be exactly 6 digits' }),
     __metadata("design:type", String)
-], RegisterUserDTO.prototype, "email", void 0);
-__decorate([
-    (0, class_validator_1.Length)(3, 50, { message: 'Name must be between 3 and 50 characters long' }),
-    __metadata("design:type", String)
-], RegisterUserDTO.prototype, "name", void 0);
-__decorate([
-    (0, class_validator_1.Length)(6, 100, { message: 'Password must be at least 6 characters long' }),
-    __metadata("design:type", String)
-], RegisterUserDTO.prototype, "password", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.Matches)(/^\d{11}$/, { message: 'CPF must contain exactly 11 numbers' }),
-    __metadata("design:type", String)
-], RegisterUserDTO.prototype, "cpf", void 0);
+], VerifyCodeDTO.prototype, "code", void 0);

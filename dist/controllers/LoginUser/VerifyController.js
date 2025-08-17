@@ -9,15 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RegisterControler = void 0;
+exports.VerifyController = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
-const RegisterService_1 = require("../../services/LoginUserService/RegisterService");
-const RegisterUserDTO_1 = require("../../dtos/login/RegisterUserDTO");
-class RegisterControler {
-    handle(req, res) {
+const VerifyCode_1 = require("../../dtos/login/VerifyCode");
+const VerifyService_1 = require("../../services/LoginUserService/VerifyService");
+class VerifyController {
+    handleController(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const dto = (0, class_transformer_1.plainToInstance)(RegisterUserDTO_1.RegisterUserDTO, req.body);
+            const dto = (0, class_transformer_1.plainToInstance)(VerifyCode_1.VerifyCodeDTO, req.body);
             const errors = yield (0, class_validator_1.validate)(dto);
             if (errors.length > 0) {
                 const messages = errors.map(err => Object.values(err.constraints || {})).flat();
@@ -25,18 +25,17 @@ class RegisterControler {
             }
             try {
                 const data = req.body;
-                const registerService = new RegisterService_1.RegisterUser(data);
-                const user = yield registerService.verifyUser();
-                return res.status(200).json({
-                    token: user.token,
-                });
+                const verifyService = new VerifyService_1.VerifyService(data.code);
+                const user = yield verifyService.verify();
+                if (!user.success) {
+                    return res.status(400).json({ error: user.message });
+                }
+                return res.status(200).json({ success: user.success });
             }
             catch (error) {
-                return res.status(400).json({
-                    error: error.message
-                });
+                return res.status(400).json({ error: error.message });
             }
         });
     }
 }
-exports.RegisterControler = RegisterControler;
+exports.VerifyController = VerifyController;

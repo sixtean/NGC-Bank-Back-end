@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv'
-import { RegisterUserDTO } from '../../dtos/RegisterUserDTO';
+import { RegisterUserDTO } from '../../dtos/login/RegisterUserDTO';
 
 dotenv.config();
 
@@ -74,7 +74,7 @@ export class RegisterUser {
             payload,
             process.env.JWT_SECRET as string,
             {
-                expiresIn: '1h',
+                expiresIn: '1d',
             }
         )
         const newUser = userRepository.create({

@@ -10,12 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = require("./database/database");
-const DashboardService_1 = require("./services/screens/DashboardService");
-function testeServices() {
+function resetDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield database_1.Connection.initialize();
-        const init = new DashboardService_1.dashboardService('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlYW5kcm9hbHZlcy53ZWJkZXZlbG9wZXJAZ21haWwuY29tIiwiaWF0IjoxNzU0Mjc5MDg4LCJleHAiOjE3NTQyODI2ODh9.ejJFj1C58et35HOhEIX4O2y1lnZuIUc3CvcYZ0Va1LI');
-        const result = yield init.getUser();
+        try {
+            console.log("⏳ Iniciando reset do banco de dados...");
+            yield database_1.Connection.initialize();
+            yield database_1.Connection.dropDatabase();
+            yield database_1.Connection.synchronize();
+            console.log("✅ Banco de dados resetado com sucesso!");
+            process.exit(0);
+        }
+        catch (error) {
+            console.error("❌ Erro ao resetar o banco de dados:", error);
+            process.exit(1);
+        }
     });
 }
-testeServices();
+resetDatabase();
